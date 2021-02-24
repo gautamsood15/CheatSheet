@@ -2,7 +2,7 @@
 --------------------------------------- DEPLOYING APLICATION TO HEROKU - NODE -----------------------------------------------------
 
 
-$heroku create --> Creates the application environment, Creates a github repo with remote as 'heroku', Also provides the URL to access the website.
+$heroku create --> Creates the app environment, Creates a github repo with remote as 'heroku', Also provides the URL to access the website.
 
 $git push heroku master --> Adding our project to the heroku remote 
 
@@ -11,27 +11,19 @@ $heroku ps:scale web=1  --> To make sure that there is atleast one instance runn
 $heroku open  --> To open the app deployed on heroku
 
 
--------------------------------------------------------------------------------------------------------------------------------------
 
-$pip install django-heroku --> to allow dajngo to be deployed on heroku.
 
-NOTE -- after the above command goto settings.py on django project and on the top add the line "import django_heroku".
-	At the bottom of the file add the line "django_heroku.settings(locals())" 
-	
-	
-	
 --------------------------------------- DEPLOYING APPLICATION TO HEROKU - DJANGO ---------------------------------------------------
 
+$heroku login --> To login to heroku services
+$heroku create --> Creates the app environment, Creates a github repo with remote as 'heroku', Also provides the URL to access the website.
 
 
-$heroku create --> Creates the application environment, Creates a github repo with remote as 'heroku', Also provides the URL to access the website.
+$heroku git:remote -a heroku_app_name --> After creating Heroku app, you can easily add a remote to your local repository 
 
-$heroku git:remote -a heroku_app_name --> you have already created your Heroku app, you can easily add a remote to your local         repository with the heroku git:remote
 
 $pip install gunicorn --> you can't use development server to deploy with heroku so we use gunicorn 
 $gunicorn django_project.wsgi --> To run the gunicorn server
-
-$heroku local --> to deploy on local machine 
 
 Next step is to create a "Procfile" in the django project so that it defines the commands to run once deployed.
 |web: gunicorn django_project.wsgi
@@ -40,41 +32,54 @@ Next step is to create a "Procfile" in the django project so that it defines the
 |:wq
 
 
-then create a requirements.txt file for heroku to see all the dependencies. create this in django project as well.
+$heroku local --> to deploy on local machine 
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') --> make sure to add a STATIC_ROOT in settings.py file below STATIC_URL
+$pip freeze > requirements.txt --> Create a requirements.txt file in root of project
+$touch runtime.txt --> create runtime file in root of project with python version specified
 
+
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') --> Add a STATIC_ROOT in settings.py file below STATIC_URL. import os required
 Now copy heroku app url and put it in ALLOWED_HOSTS = [] list along with 127.0.0.1
 
 
-$pip install psycopg2 --> To install library for database. make sure to add to requirements.txt
-
-make ENGINE changes in settings.py to 'ENGINE': 'django.db.backends.postgresql',
-
-Then add the config vars from the settings in heroku and add 'NAME', 'HOST', 'PORT', 'USER', 'PASSWORD'
-
-$git push heroku master --> Adding our project to the heroku remote
-
+$pip install psycopg2 --> To install library for database. 
+Make ENGINE changes in settings.py to 'ENGINE': 'django.db.backends.postgresql',
+Then add the "config vars" from the settings in heroku and add 'NAME', 'HOST', 'PORT', 'USER', 'PASSWORD'
 $python manage.py migrate --> to migrate the new DB configurations
 
-$heroku local --> To locally start all of the process types that are defined in your Procfile
 
-$pip install whitenoise --> allow django to serve static images from Appserver
-
-$pip freeze > requirements.txt
-
+$pip install whitenoise --> allow django to serve static images from Appserver. make sure to add to requirements.txt
 Goto settings.py then MIDDLEWARE add - 'whitenoise.middleware.WhiteNoiseMiddleware'  and  set DEBUG to 'False'
 
-$git push heroku master --> Adding our project to the heroku remote
+
+$heroku local --> To locally start all of the process types that are defined in your Procfile
+$git push heroku master --> Adding our project to the heroku remote. Make sure this command is run in root pf project folder
 
 
 
+----------------------------------------------- HEROKU COMMOM COMMANDS --------------------------------------------------------------
 
 
+$heroku create App_Name --> create app using specific name
 
+$heroku buildpacks:set heroku/Lang_Name --> Adding buildpack to an app
 
+$heroku create App_Name --buildpack heroku/python  --> creating a new app using mentioned buildpack
 
+$heroku buildpacks:remove heroku/Lang_Name --> Removing buildpack to an app
 
+$heroku buildpacks:search Lang_Name --> To search for third party buildpacks for a language
+
+$heroku buildpacks:clear --> For using your app’s default Heroku buildpack with the following command
+
+$heroku git:remote -a heroku_app_name --> After creating Heroku app, you can easily add a remote to your local repository 
+
+$heroku login --> To login to heroku services
+
+$heroku ps:scale web=1  --> To make sure that there is atleast one instance running of the application
+
+$git push heroku master --> Adding our project to the heroku remote 
 
 
 
