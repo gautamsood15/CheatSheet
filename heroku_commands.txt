@@ -9,3 +9,11 @@ $git push heroku master --> Adding our project to the
 $heroku ps:scale web=1  --> To make sure that there is atleast one instance running of the application
 
 $heroku open  --> To open the app deployed on heroku
+
+
+
+
+$pip install django-heroku --> to allow dajngo to be deployed on heroku.
+
+NOTE -- after the above command goto settings.py on django project and on the top add the line "import django_heroku".
+	At the bottom of the file add the line "django_heroku.settings(locals())" 
