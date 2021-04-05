@@ -1,0 +1,11 @@
+
+------------------------------------------ DEPLOYING APLICATION TO HEROKU USING GIT -----------------------------------------------------------------------------------
+
+
+$heroku create --> Creates the application environment, Creates a github repo with remote as 'heroku', Also provides the URL to access the website.
+
+$git push heroku master --> Adding our project to the 
+
+$heroku ps:scale web=1  --> To make sure that there is atleast one instance running of the application
+
+$heroku open  --> To open the app deployed on heroku
