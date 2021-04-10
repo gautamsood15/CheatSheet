@@ -1,4 +1,38 @@
+
 #Refer to Docker_snaps to check for working architecture of docker
 
 
-----------------------------------------           --------------------------------------------------
+----------------------------------------  DOCKER SETUP FOR A PROJECT  --------------------------------------------------
+
+#Create a "Dockerfile" in the root directory of the project.
+#GOTO "https://hub.docker.com" to copy sample Dockerfile 
+#Use the sample to create a new Dockerfile
+#Build the docker image using "docker build" command
+# start the container using "docker run" command
+
+
+
+--------------------------------------- Docker Commands --------------------------------------------------------------
+
+$docker -v --> check the version of docker installed
+
+$docker build -t image_name path_to_Dockerfile [eg: .]  --> build a docker image for project
+
+$docker run img_name   --> To run the contianer
+
+$docker run -t -i image_name  --> Run container with interactive mode with inputs 
+
+
+----------------------------------------- EXAMPLE DOCKERFILE ----------------------------------------------------------
+
+FROM python:3.8
+
+WORKDIR /Jotter-docker
+
+COPY requirements.txt .
+
+RUN pip install requirements.txt
+
+ADD jotter.py .                       # Use COPY for folders
+
+CMD ["python", "./jotter.py"]
