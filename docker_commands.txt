@@ -1,0 +1,4 @@
+#Refer to Docker_snaps to check for working architecture of docker
+
+
+----------------------------------------           --------------------------------------------------
