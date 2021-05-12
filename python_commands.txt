@@ -1,0 +1,81 @@
+
+---------------------------------------------- PYTHON MANAGEMENT COMMANDS -------------------------------------------------------------------
+
+
+$python -m pip install package_name==1.2.3   --> To install specific version of a python package/
+
+
+
+
+
+
+
+
+
+----------------------------------------------- VIRUTAL ENVIRONMENT SETUP  ------------------------------------------------------------------
+
+
+
+#The below commands are used for managing Virtual Environments using "venv". 
+
+$pip install venv                   --> Install venv
+ 
+$python -m venv ~/env               --> Create new environment
+
+
+
+
+
+#The below commands are used for managing Virtual Environments using "Virtualenv".
+
+$pip install virtualenv             --> Install virtualenv
+
+#Go inside the project dir(env) that you have created --> $cd path/project_name
+
+$virtualenv env                     --> Create new environment
+
+
+
+
+
+#Common Commands for both venv and virtualenv
+
+$source ~/env/bin/activate          --> Activate virtual environment
+
+$deactivate                         --> De-activate virtual environment  
+
+$pip install -r requirements.txt    --> Install requirements from requirements.txt
+
+#requirements.txt    (EXAMPLE)
+|django==2.2
+|djangorestframework==3.9.2
+|
+|:wq
+
+
+
+
+
+
+
+--------------------------------------------- DJANGO MANAGEMENT COMMANDS ---------------------------------------------------------------------
+
+
+
+
+
+$django-admin.py startproject proj_name --> To create new django project
+
+$python manage.py startapp app_name     --> To create new django application
+
+$python manage.py runserver 0.0.0.0:8000 --> To start django development server 
+
+$python manage.py makemigrations         --> To create database migration files
+
+$python manage.py migrate                --> To run database migrations
+
+$python manage.py createsuperuser        --> To create new superuser
+
+$python manage.py collectstatic          --> Collects the static files from all installed apps and copies them to the STATICFILES_STORAGE.
+
+#NOTE: Use --help option for more information
