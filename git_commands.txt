@@ -1,0 +1,271 @@
+------------------------------------------BASIC CONCEPTS-------------------------------------------------
+
+$git help command_name => shows the man page for the command
+
+$git init path/folder_name => initializes a git repo
+$git status => shows the files in the 3 stages of git
+$git add file_name1 file_name2 ..  => wrking dir -> staging dir
+$git commit NONE(to choose editor to type long messages)/-m "commit_message" => commits all files in staging area
+$rm -rf .git => remove project from git version control
+$git log => shows all commits part of the repo
+$git show => shows the last commit & a diff contaning all the changes
+$git ls-files => shows us what files are being tracked by git
+$git commit -am "commit_message" => first add modified file to staging area then commit
+$git reset HEAD file_name => unstages the file_name from staging area
+$git checkout -- file_name => rollbacks the file_name to last commit
+$git help log => show man page for git log command
+$git log --oneline --graph --decorate --all => shows commit history in one line, with astrix based graph showing the branching hierarchy, with --decorate telling us which commits are part of which branch and --all providing history for all branches in repo.
+
+#git alias allows us to build a shortcut for the longer commands
+#$git config --global alias.cmd_alias_name "command_to_have_alias_for(remove git from start of the command)"
+   [e.g - $ git config --global alias.history "log --oneline --graph --decorate --all"   ==  git history]
+
+$git config --global --list => listing git's config entry
+$git history -- file_name  => shows git log only for file_name
+
+$git mv old_name new_name => changes the file_name and stages the changes in staging area (hence follow this by commiting renaming)
+$git rm file_name => deletes the file andstages the changes in staging area (follow this by commiting the deletion)
+
+
+
+#git can manage the files outside a git repo
+#when os command is used to create a file, git marks it untracked
+#when os command is used to rename a file,git marks the file by new name as untracked and that by old name as deleted
+
+$git add -u => will update or remove previously tracked files from the entire working tree
+$git add -A =>  will also update, remove previously tracked files, but it will also add new files
+
+
+#git provides facility for excluding files and folders we dont want in our git repo(.gitignore)
+#we create a file by the name .gitignore in the repo mention name of files not to be tracked, one line at a time and then have git track it by commiting 
+#(instead of using file name we can also use regex like, *.log to track, in this case all log files)
+
+
+-------------------------- ADVANCED CONCEPTS -------------------------------------------
+
+
+
+$git diff commit_SHA Commit_SHA => shows difference between the two commits
+$git difftool commit_SHA Commit_SHA => does the same as above but with other configuration tool(p4merge)
+$git diff => shows the changes between latest changes and the latest commit before it
+$git difftool => same as above command but with configuration tool(p4merge)
+
+
+
+
+
+#BRANCHING => when merging git tries its best to automatically merge if possible. This leads to several types of merge scenarios :-
+
+1. Fast-Forward => when no additional work has been detected on the parent(master) branch
+		  git will simply apply all commits from the other branch to the parent branch
+		  This can be disabled
+
+2. Automatic => when no-conflicting changes in the parent branch. The old branch timeline is preserved
+	       and a new "automatic merge commit" is created to show the merging of the two branches
+
+3. Manual => when git is unable to automatically resolve any conflicts. Git enters a special "conflicting merge state"
+	   i.e all merge conflicts must be resolved prior to moving forward with the commit. Once all conflicts are 
+	   resolved those changes are saved as "manual merge commit"
+
+
+
+
+
+
+#SPECIAL MARKES => Git has special marks/pointers :-
+
+1. HEAD => Points to the last commit of the current branch. So as we switch branches the location of HEAD moves to 
+	  the last commit of that branch (we can manually move HEAD some place other than last commit)
+
+
+$git branch => shows the list of branches in the repo (* represents current branch, -a means all branches)
+$git checkout -b branch_name => creates brnach_name, and then switches to it, and carries modification in staging area to branch_name
+$git diff branch_name1 branch_name2 => shoes us the difference between the 2 branches
+
+#To integrate any updates on branch we need to switch to parent branch
+ $git checkout branch_name => switches to the branch_name
+
+$git merge brnach_name => merges the branch_name to the parent_branch/current_branch
+#After the merge, HEAD and the two branches lables all point to the same commit id(fast forward merge)
+
+$git branch -d branch_name => Deletes the branch_name and also branch_name label from commit logs
+
+
+
+
+
+
+
+
+#CONFLICT => when changes are made in both parent and other branch then during murging it creates conflicts and hence automerging dosent work
+             this puts us in a merging state with (branch_name|MERGING) in the prompt. We can solve this using mergetool
+
+$git mergetool => involkes the merge tool with p4merge. It shows a list of possible solutions that can be picked to merge the branches. Then we can commit the changes
+
+#Once the commit is made we get a/many __.orig file that is untracked, it is the original file, we add it to .gitignore and then remove .orig 
+
+
+
+
+
+
+
+#TAGGING => These are just lables that we can put at any arbitrary commit point and by default if not specified, it'll be the current commit
+	    Tags are of 2 types :-
+	    1. light-weight tag => tag with no info assosiated with it
+	    2. Anotated tag => tag with extra info assosiated with it
+
+$git tag tag_name => creates a light-weight tag of tag_name
+$git tag -a tag_name -m "tag_info" => creates an anotated tag with message
+$git tag -d tag_name => deletes the tag_name
+$git tag --list => shows the list of tags present in repo
+$git show tag_name => shows us the tag information including message. This is of help when project completes a major milestone and want some info assosiated with it
+  
+
+
+
+
+
+#STASHING => Often, when you’ve been working on part of your project, things are in a messy state and you want to switch branches for a bit to work on something else 
+	     The problem is, you don’t want to do a commit of half-done work just so you can get back to this point later
+	     The answer to this issue is the git stash command
+
+
+$git stash/$git stash push => To push a new stash onto your stack
+$git stash list => shows us all stashes
+$git stash pop => to apply the stash and then immediately drop it from your stack
+
+
+
+
+
+
+#RESET AND REFLOGS => sometimes we want to rollback to a previous commit point to avoid some instakes we might have made in the last commit point
+		      There are 3 ways of resetting :- 
+		      1. soft => changes where HEAD is pointing. It preserves the staging and working area
+		      2. mixed(default) => changes where HEAD is pointing. removes all files form staging area to working dir.
+		      3. Hard => wipes out any changes pending and/or in staging area, HEAD points to the commit_id where no file in staging area created
+
+#REFLOGS => shows us all actions taken in repo. Allows us to get all the way back to a specific commit_id
+ 
+$git reset commit_id --soft => this is a soft reset to the commit_id
+$git reset commit_id --mixed => this is a mixed reset to the commit_id
+$git reset commit_id --hard => this is a hard reset to the commit_id
+
+$git reflog => shows all the commits in relogs
+$git reset --hard commit_id => get back to the time of commit_id
+
+
+
+
+
+----------------------------------------GITHUB-----------------------------------------------------------------------
+
+
+#First we create a repo in github with default options, Then link github repo to local git repo
+#git remote => manages all our remote repos from our local repos
+
+$git remote -v => lists all the remotes of the repo
+
+$git remote add reference_to_remote_repo(origin) Url_to_remote_repo => connects to remote repository
+#git allows to have 2 different url for (FETCHING and PUSHING)
+
+$git push -u(tracking btw master of local and remote repo) origin master(brnach_to_pushup) --tags => pushes changes from local to remote repo (--tags makes sure that the tags are pushed aas well to remote repo)
+#master -> master => means that the local repo puushed to remote now creates a branch call master in remote that the local calls origin
+
+
+
+
+
+
+-----------------------------------------SSH AUTH---------------------------------------------------------------------
+
+
+
+#Previous section has HTTP as authentication setup whereas now we use SSH as authentication. SSH auth is fast in updating changes
+#SSH dosent as for passwd and userid as it already has a public and private key setup hence making updates less difficult
+
+#First we have to generate SSH key on local system. For this create .ssh folder on the local system
+$mkdir .ssh (inside users home dir)
+
+#Inside .ssh we generate PUBLIC and PRIVATE keys
+$ssh-keygen -t(type) rsa -C(common_name) "gauty22@gmail.com" => this asks for a passphrase and then the keys are generated
+
+#After above step we get id_rsa(private key) and id_rsa.pub(public key) file
+#copy the public key and paste it in settings->SSH Keys->Add ssh key->keys->Add key
+
+$ssh -T git@github.com => connect to github via ssh (passphrase entry required)
+
+
+
+
+
+----------------------------------------GITHUB REPO-------------------------------------------------------------------
+
+
+
+
+
+
+#create a repo in github with a bunch of files form the start. We can clone this repo to the local system by copying SSH/HTTP url to clipboard
+$git clone ssh/http_url => clones the github repo to local system
+
+#In the above case ORIGIN is the name of the remote reference
+
+$git clone ssh/http_url folder_name => clones the github repo to local system with folder_name as the name of the repo
+
+
+$git push => sends only the current tracking branch to the remote repo
+$git config --global push.default simple => sets the mode in which we push updates to remote
+
+
+
+#FETCH AND PULL
+#When we make changes to remote and get them on local repo we need to PULL them. PULL = FETCH + MERGE
+#If scenario arise where changes are made in both the local and remote repo and we need to conduct manual merge, we can just fetch and then do manual merge by ourself
+
+$git fetch => goes to remote repo and update all local info based on changes in remote
+$git pull => this fetches changes from remote and merges them to local repo
+$git push => follow this by push to github
+
+#NOTE => ALWAYS PERFORM A GIT PULL BEFORE A GIT PUSH
+
+git pull origin master --allow-unrelated-histories
+
+
+
+-------------------------------------------- AMEND & REBASE --------------------------------------------------------------------
+
+
+$git commit --amend   --> editing the last commit 
+$git show SHA --> shows the changes saved in the commit
+$git add -p --> shows the changes that are being stages
+$git commit --amend --no-edit --> editing the last commit's changes save in the commit  [can also be used to add new files to the amending commit]
+
+#NOTE: Amend action changes the SHA of the commit but the cronology of the commit remains tha same. --no-edit is used when message need to remain the same
+
+#INTEACTIVE REBASE ---- for making changes to all commits
+
+$git rebase --interactive HEAD~N  -->  Allows us to make changes to the nth commit from the top
+$git rebase --interactive SHA^    -->  Allows us to make changes to the mentioned commit [^ --> required to reference the mentioned commit in the console]
+
+|pick (this gets replaced by "edit" for the commit to be changed)
+|pick (if only commit message to be changes then use "reword" instead of "edit")
+|
+|
+|:wq
+
+#NOTE: after the rebase command the curser shows this --> (no branch, rebasing master)#   
+After this we can make the changes we want in the project and then add them to staging area.
+
+$git commit --amend --no-edit
+$git rebase --continue
+
+#NOTE: This changes the SHA of the commit that is edited but the cronology of the commit remains the same.
+
+
+#NOTE: TO abort the rebase us the below command just before adding to the staging area.
+$git rebase --abort
+
+
+$git commit --amend --date="Sun May 16 13:34:43 2021 +530"    --> command to change the date of a pervious commit 
