@@ -26,10 +26,12 @@ NOTE -- after the above command goto settings.py on django project and on the to
 
 $heroku create --> Creates the application environment, Creates a github repo with remote as 'heroku', Also provides the URL to access the website.
 
-$heroku git:remote -a heroku_app_name --> f you have already created your Heroku app, you can easily add a remote to your local         repository with the heroku git:remote
+$heroku git:remote -a heroku_app_name --> you have already created your Heroku app, you can easily add a remote to your local         repository with the heroku git:remote
 
 $pip install gunicorn --> you can't use development server to deploy with heroku so we use gunicorn 
 $gunicorn django_project.wsgi --> To run the gunicorn server
+
+$heroku local --> to deploy on local machine 
 
 Next step is to create a "Procfile" in the django project so that it defines the commands to run once deployed.
 |web: gunicorn django_project.wsgi
