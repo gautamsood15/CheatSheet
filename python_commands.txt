@@ -1,5 +1,5 @@
 
----------------------------------------------- PYTHON MANAGEMENT COMMANDS -------------------------------------------------------------------
+---------------------------------------------- PYTHON MANAGEMENT COMMANDS ---------------------------------------------------------------
 
 
 $python -m pip install package_name==1.2.3   --> To install specific version of a python package/
@@ -20,16 +20,16 @@ $pyinstaller file_name --onefile --> command creates .exe from python file, it c
 
 
 
------------------------------------------------ VIRUTAL ENVIRONMENT SETUP  ------------------------------------------------------------------
+----------------------------------------------- VIRUTAL ENVIRONMENT SETUP --------------------------------------------------------------
 
 
 
 #The below commands are used for managing Virtual Environments using "venv". 
 
 $pip install venv                   --> Install venv
- 
 $python -m venv ~/env               --> Create new environment
-
+$source ~/env/bin/activate          --> Activate virtual environment
+$deactivate                         --> De-activate virtual environment  
 
 
 
@@ -37,27 +37,26 @@ $python -m venv ~/env               --> Create new environment
 #The below commands are used for managing Virtual Environments using "Virtualenv".
 
 $pip install virtualenv             --> Install virtualenv
-
-#Go inside the project dir(env) that you have created --> $cd path/project_name
-
-$virtualenv env                     --> Create new environment
-
-
-
-
-
-#Common Commands for both venv and virtualenv
-
+$virtualenv env                     --> Create new environment in the present working directory
 $source ~/env/bin/activate          --> Activate virtual environment
-
-$deactivate                         --> De-activate virtual environment  
-
+$deactivate                         --> De-activate virtual environment 
 
 
 
 
+# To create a Pipvenv virtual environment
 
---------------------------------------------- DJANGO MANAGEMENT COMMANDS ---------------------------------------------------------------------
+$ python3 -m pipenv --python 3.7 / pipenv --python 3.7 --> To create a pipvenv in the present working directory
+$ pipenv install package_name --> To install packages in pipenv
+$ pipenv shell --> To activate pipenv environment
+$ exit --> To exit the pipenv environment
+
+
+
+
+
+
+--------------------------------------------- DJANGO MANAGEMENT COMMANDS ---------------------------------------------------------------
 
 
 
