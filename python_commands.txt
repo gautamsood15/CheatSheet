@@ -46,8 +46,8 @@ $deactivate                         --> De-activate virtual environment
 
 # To create a Pipvenv virtual environment
 
-$ python3 -m pipenv --python 3.7 / pipenv --python 3.7 --> To create a pipvenv in the present working directory
-$ pipenv install package_name --> To install packages in pipenv
+
+$ pipenv install package_name --> To install packages in pipenv, when run first time creates a virtual env as well.
 $ pipenv shell --> To activate pipenv environment
 $ exit --> To exit the pipenv environment
 
