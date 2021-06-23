@@ -25,7 +25,7 @@ $heroku git:remote -a heroku_app_name --> After creating Heroku app, you can eas
 $pip install gunicorn --> you can't use development server to deploy with heroku so we use gunicorn 
 $gunicorn django_project.wsgi --> To run the gunicorn server
 
-Next step is to create a "Procfile" in the django project so that it defines the commands to run once deployed.
+Next step is to create a "Procfile" in the django project so that it defines the commands to run once deployed. Create in project root dir.
 |web: gunicorn django_project.wsgi
 |
 |
