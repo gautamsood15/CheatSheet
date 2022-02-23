@@ -1,0 +1,22 @@
+--------------------------------------------- DJANGO MANAGEMENT COMMANDS ---------------------------------------------------------------
+
+
+
+
+
+$django-admin.py startproject proj_name --> To create new django project
+
+$python manage.py startapp app_name     --> To create new django application
+
+$python manage.py runserver 0.0.0.0:8000 --> To start django development server 
+
+$python manage.py makemigrations         --> To create database migration files
+
+$python manage.py migrate                --> To run database migrations
+
+$python manage.py createsuperuser        --> To create new superuser
+
+$python manage.py collectstatic          --> Collects the static files from all installed apps and copies them to the STATICFILES_STORAGE.
+
+#NOTE: Use --help option for more information
+#NOTE: "python -m django" is similar to "django-admin" command

@@ -1,8 +1,16 @@
-
 ---------------------------------------------- PYTHON MANAGEMENT COMMANDS ---------------------------------------------------------------
 
 
-$python -m pip install package_name==1.2.3   --> To install specific version of a python package/
+
+# download the version of python source from the python website. extract the file, go inside the file and run "configure" file then install it (follow below commands)
+$tar -xf Python-x.x.x.tgz
+$cd Python-x.x.x
+$./configure
+$sudo make altinstall --> here altinstall is used as ubuntu system may have software  packages dependant on other version of python as well (alternatively we can use "install" but "altinstall" is prefered) 
+
+$sudo apt install python3-pip   -->      To install pip in ubuntu
+
+$pip freeze > requirements.txt  --> Takes all the installed requirements and added it to the txt file
 
 $pip install -r requirements.txt    --> Install requirements from requirements.txt
 
@@ -13,9 +21,12 @@ $pip install -r requirements.txt    --> Install requirements from requirements.t
 |:wq
 
 
-$pip freeze > requirements.txt  --> Takes all the installed requirements and added it to the txt file
-
 $pyinstaller file_name --onefile --> command creates .exe from python file, it creates 2 folders "dist" and "build" . The "dist" folder has the .exe file 
+
+
+$python -m pip install package_name==1.2.3  / pip install package_name==1.2.3   --> To install specific version of a python package/
+$python -m pip install "package_name>=3.2,<3.3" / pip install "package_name>=3.2,<3.3"  --> To install latest version of 3.2 but not 3.3 or 												    above. hence we define a range to download 												    software from
+
 
 
 
@@ -56,24 +67,7 @@ $ exit --> To exit the pipenv environment
 
 
 
---------------------------------------------- DJANGO MANAGEMENT COMMANDS ---------------------------------------------------------------
 
 
 
 
-
-$django-admin.py startproject proj_name --> To create new django project
-
-$python manage.py startapp app_name     --> To create new django application
-
-$python manage.py runserver 0.0.0.0:8000 --> To start django development server 
-
-$python manage.py makemigrations         --> To create database migration files
-
-$python manage.py migrate                --> To run database migrations
-
-$python manage.py createsuperuser        --> To create new superuser
-
-$python manage.py collectstatic          --> Collects the static files from all installed apps and copies them to the STATICFILES_STORAGE.
-
-#NOTE: Use --help option for more information
