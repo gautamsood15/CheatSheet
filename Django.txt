@@ -16,7 +16,11 @@ $python manage.py migrate                --> To run database migrations
 
 $python manage.py createsuperuser        --> To create new superuser
 
-$python manage.py collectstatic          --> Collects the static files from all installed apps and copies them to the STATICFILES_STORAGE.
+$python manage.py collectstatic          --> Collects the static files from all installed apps and copies them to the STATICFILES_STORAGE
+
+$python manage.py shell					 --> Starts a Python command prompt with your Django environment pre-loaded
+
 
 #NOTE: Use --help option for more information
 #NOTE: "python -m django" is similar to "django-admin" command
+#NOTE: https://github.com/codingforentrepreneurs/Try-Django-3.2/tree/main/references --> Link for Try Django 3.2 references (Django shell commands)
