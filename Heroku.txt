@@ -40,12 +40,12 @@ $touch runtime.txt --> create runtime file in root of project with python versio
 
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') --> Add a STATIC_ROOT in settings.py file below STATIC_URL. import os required
-Now copy heroku app url and put it in ALLOWED_HOSTS = [] list along with 127.0.0.1
+Now copy heroku app url and put it in ALLOWED_HOSTS = [] list along with 127.0.0.1 and 0.0.0.0 for local testing
 
 
 $pip install psycopg2 --> To install library for database. 
 Make ENGINE changes in settings.py to 'ENGINE': 'django.db.backends.postgresql',
-Then add the "config vars" from the settings in heroku and add 'NAME', 'HOST', 'PORT', 'USER', 'PASSWORD'
+Then add heroku-postgrese add-on to your app from the app dashboard and then goto the "config vars" from the settings in heroku and add 'NAME', 'HOST', 'PORT', 'USER', 'PASSWORD'
 $python manage.py migrate --> to migrate the new DB configurations
 
 
@@ -54,7 +54,7 @@ Goto settings.py then MIDDLEWARE add - 'whitenoise.middleware.WhiteNoiseMiddlewa
 
 
 $heroku local --> To locally start all of the process types that are defined in your Procfile
-$git push heroku master --> Adding our project to the heroku remote. Make sure this command is run in root pf project folder
+$git push heroku master --> Adding our project to the heroku remote. Make sure this command is run in root of project folder
 
 
 
