@@ -21,6 +21,16 @@ $python manage.py collectstatic          --> Collects the static files from all 
 $python manage.py shell					 --> Starts a Python command prompt with your Django environment pre-loaded
 
 
+
+
+
+
+
+
+
+#NOTE django/python-dotenv: reads key-value pairs from a .env file and can set them as environment variables. It helps in the development of applications following the 12-factor principles.
+
+
 #NOTE: Use --help option for more information
 #NOTE: "python -m django" is similar to "django-admin" command
 #NOTE: https://github.com/codingforentrepreneurs/Try-Django-3.2/tree/main/references --> Link for Try Django 3.2 references (Django shell commands)

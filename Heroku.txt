@@ -1,17 +1,4 @@
 
---------------------------------------- DEPLOYING APLICATION TO HEROKU - NODE -----------------------------------------------------
-
-
-$heroku create --> Creates the app environment, Creates a github repo with remote as 'heroku', Also provides the URL to access the website.
-
-$git push heroku master --> Adding our project to the heroku remote 
-
-$heroku ps:scale web=1  --> To make sure that there is atleast one instance running of the application
-
-$heroku open  --> To open the app deployed on heroku
-
-
-
 
 --------------------------------------- DEPLOYING APPLICATION TO HEROKU - DJANGO ---------------------------------------------------
 
@@ -34,13 +21,20 @@ Next step is to create a "Procfile" in the django project so that it defines the
 
 $heroku local --> to deploy on local machine 
 
-$pip freeze > requirements.txt --> Create a requirements.txt file in root of project
-$touch runtime.txt --> create runtime file in root of project with python version specified
+
 
 
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') --> Add a STATIC_ROOT in settings.py file below STATIC_URL. import os required
-Now copy heroku app url and put it in ALLOWED_HOSTS = [] list along with 127.0.0.1 and 0.0.0.0 for local testing
+$heroku config:set DISABLE_COLLECTSTATIC=1 --> To not allow Heroku to run collectstatic on your behalf.
+$python manage.py collectstatic --> To collect alstatic files in single folder
+$pip install whitenoise --> allow django to serve static images from Appserver. make sure to add to requirements.txt
+Goto settings.py then MIDDLEWARE add - 'whitenoise.middleware.WhiteNoiseMiddleware'  and  set DEBUG to 'False'
+
+
+
+Now copy heroku app url (eg. "aqueous-caverns-61669.herokuapp.com") and put it in ALLOWED_HOSTS = [] list along with 127.0.0.1 and 0.0.0.0 for local testing
+
 
 
 $pip install psycopg2 --> To install library for database. 
@@ -49,12 +43,24 @@ Then add heroku-postgrese add-on to your app from the app dashboard and then got
 $python manage.py migrate --> to migrate the new DB configurations
 
 
-$pip install whitenoise --> allow django to serve static images from Appserver. make sure to add to requirements.txt
-Goto settings.py then MIDDLEWARE add - 'whitenoise.middleware.WhiteNoiseMiddleware'  and  set DEBUG to 'False'
 
+
+$pip freeze > requirements.txt --> Create a requirements.txt file in root of project
+$touch runtime.txt --> create runtime file in root of project with python version specified eg. python-3.10.5
 
 $heroku local --> To locally start all of the process types that are defined in your Procfile
+$git push origin master --> Make sure to update github branch before updating heroku branch
 $git push heroku master --> Adding our project to the heroku remote. Make sure this command is run in root of project folder
+
+
+NOTE:- Create static and template folder side by side in the app folder
+
+
+
+
+
+----------------------------------------------- CUSTOM DOMAIN IN HEROKU APP --------------------------------------------------------------
+
 
 
 
@@ -86,6 +92,19 @@ $git push heroku master --> Adding our project to the heroku remote
 
 
 
+
+
+
+--------------------------------------- DEPLOYING APLICATION TO HEROKU - NODE -----------------------------------------------------
+
+
+$heroku create --> Creates the app environment, Creates a github repo with remote as 'heroku', Also provides the URL to access the website.
+
+$git push heroku master --> Adding our project to the heroku remote 
+
+$heroku ps:scale web=1  --> To make sure that there is atleast one instance running of the application
+
+$heroku open  --> To open the app deployed on heroku
 
 
 
